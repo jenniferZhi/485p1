@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% block content %}
+	<h1>Hello, Orange</h1>	
+		
+		{% for items in test%}
+		<strong>
+			{{items['username']}}
+		</strong>
+		<br>
+		<a href="{{url_for('albums.albums_route', username=items['username'])}}" id="user_albums_{{items['username']}}">		
+			<button>
+				{{items['username']}}
+			</button>
+		</a>
+		<br>
+		{% endfor %}
+		<br>
+		<br>
+		<br>
+		<br>
+		<br>
+		<br>
+
+		<footer>EECS 485 PROJECT 1 CREATED BY GROUP 19</footer>
+{% endblock %}

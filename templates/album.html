@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>{{album_title}}</h1>
+	<div>
+		<a href="{{url_for('album.album_edit_route', albumid = albumid)}}" id="user_album_edit_{{albumid}}">
+			<button>EDIT ALBUM</button>
+		</a>
+	</div><br>
+	{% for item in Photo %}
+		<div>{{item.picid}}
+			<a href="{{url_for('pic.pic_route', picid = item.picid)}}" id="pic_{{item.picid}}_link">
+			{% set filename = "images/" ~ item.picid ~  "." ~ item.format %}	
+			<img src = "{{url_for('static',filename = filename)}}">
+
+			</a>
+
+			{% if edit %}
+				<form action="" method="POST">
+					<input type="hidden" name="albumid" value="{{albumid}}">
+					<input type="hidden" name="picid" value="{{item.picid}}">
+					<input type="submit" name="op" value="delete" id="delete_pic_{{item.picid}}">
+				</form>
+			{% endif %}
+
+		</div><br>
+	{% endfor %}
+
+	{% if edit %}
+		<form action="" method="POST" enctype="multipart/form-data">
+			NEW PIC:
+			<input type="hidden" name="albumid" value="{{albumid}}">
+			<input type="file" name="file" id="file_input">
+			<input type="submit" name="op" value="add" id="file_submit">
+			
+		</form>>
+	{% endif %}
+{% endblock %}

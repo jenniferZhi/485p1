@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+{% block content %}
+
+	<strong>
+		{{username}}
+	</strong>
+	<div>
+		<a href="{{url_for('albums.albums_edit_route', username = username)}}"
+			id="user_albums_edit_{{username}}">
+		<button>EDIT ALBUMS</button></a>
+	</div><br>
+
+	{% for item in Albums%}
+		<div>{{item.title}}
+			<a href="{{url_for('album.album_route', albumid = item.albumid)}}" id="album_{{item.albumid}}_link">
+			<button>{{item.title}}</button>
+			</a>
+			<a href="{{url_for('album.album_edit_route', albumid = item.albumid)}}" id="album_edit_{{item.albumid}}_link">
+			<button>EDIT</button>
+			</a>
+
+			{% if edit %}
+				<form action="" method="POST">
+					<input type="hidden" name="albumid" value="{{item.albumid}}">
+					<input type="submit" name="op" value="delete" id="delete_album_{{item.albumid}}">
+
+				</form>
+			{% endif %}
+
+		</div><br>
+	{% endfor %}
+
+
+	{% if edit %}
+		<form action="" method="POST">
+			NEW ALBUM:
+			<input type="text" name="createalbum" id="album_add_name">
+			<input type="submit" name="op" value="add" id="album_add_submit">
+			
+		</form>	
+	{% endif %}
+{% endblock %}
